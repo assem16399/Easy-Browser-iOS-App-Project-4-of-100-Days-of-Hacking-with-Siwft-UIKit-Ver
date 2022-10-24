@@ -12,6 +12,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView:WKWebView!
     var loadingProgressBar: UIProgressView!
+    var websites=[
+        "www.hackingwithswift.com/100",
+        "www.apple.com",
+        "github.com/assem16399"
+    ]
 
     override func loadView() {
         webView = WKWebView()
@@ -23,12 +28,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configureNavBar()
-        loadWebsite(ofUrl: "https://www.hackingwithswift.com/100")
+        loadWebsite(ofUrl: websites[0])
     }
     
     
     private func loadWebsite(ofUrl url:String) {
-        let url = URL(string: url)!
+        let url = URL(string: "https://"+url)!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
@@ -67,12 +72,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     
     func addActionsToAlertController(name:UIAlertController) {
-        name.addAction(UIAlertAction(title: "Apple.com", style: .default, handler: {(_) in
-            self.loadWebsite(ofUrl: "https://www.apple.com")
-        }))
-        name.addAction(UIAlertAction(title: "My Github account", style: .default, handler: {(_) in
-            self.loadWebsite(ofUrl: "https://github.com/assem16399")
-        }))
+        
+        websites.forEach{element in name.addAction(UIAlertAction(title: element, style: .default, handler: {(_) in
+            self.loadWebsite(ofUrl: element)
+        }))}
+        
+       
         name.addAction(UIAlertAction(title: "Cancel", style: .cancel))
     }
     
