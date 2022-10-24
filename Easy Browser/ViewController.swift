@@ -11,6 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView:WKWebView!
+    var loadingProgressBar: UIProgressView!
 
     override func loadView() {
         webView = WKWebView()
@@ -33,13 +34,23 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func configureNavBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain,  target: self, action: #selector(onOpenPressed))
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(onRefreshPressed))
         
-        toolbarItems = [spacer, refresh]
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain,  target: self, action: #selector(onOpenPressed))
+        
+        loadingProgressBar = UIProgressView(progressViewStyle: .default)
+        loadingProgressBar.sizeToFit()
+        let progressButton = UIBarButtonItem(customView: loadingProgressBar)
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(onRefreshPressed))
+        toolbarItems = [progressButton, spacer, refresh]
         
         navigationController?.isToolbarHidden = false
+        
     }
     
     @objc private func onRefreshPressed(){
@@ -69,7 +80,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
         title = webView.title
     }
     
-    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            loadingProgressBar.progress = Float(webView.estimatedProgress)
+        }
+    }
 
 }
 
