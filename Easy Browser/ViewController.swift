@@ -13,9 +13,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var webView:WKWebView!
     var loadingProgressBar: UIProgressView!
     var websites=[
-        "www.hackingwithswift.com/100",
+        "www.hackingwithswift.com",
         "www.apple.com",
-        "github.com/assem16399"
+        "github.com"
     ]
 
     override func loadView() {
@@ -47,13 +47,15 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         loadingProgressBar = UIProgressView(progressViewStyle: .default)
         loadingProgressBar.sizeToFit()
+        
         let progressButton = UIBarButtonItem(customView: loadingProgressBar)
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(onRefreshPressed))
-        toolbarItems = [progressButton, spacer, refresh]
         
+        toolbarItems = [progressButton, spacer, refresh]
+    
         navigationController?.isToolbarHidden = false
         
     }
@@ -72,12 +74,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     
     func addActionsToAlertController(name:UIAlertController) {
-        
         websites.forEach{element in name.addAction(UIAlertAction(title: element, style: .default, handler: {(_) in
             self.loadWebsite(ofUrl: element)
         }))}
         
-       
         name.addAction(UIAlertAction(title: "Cancel", style: .cancel))
     }
     
@@ -91,5 +91,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     }
 
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+
+            if let host = url?.host {
+                for website in websites {
+                    print(host)
+                    if host.contains(website) {
+                        decisionHandler(.allow)
+                        return
+                    }
+                }
+            }
+        
+            decisionHandler(.cancel)
+    }
 }
 
