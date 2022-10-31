@@ -12,10 +12,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView:WKWebView!
     var loadingProgressBar: UIProgressView!
+    
     var websites=[
-        "www.hackingwithswift.com",
-        "www.apple.com",
-        "github.com"
+        "hackingwithswift",
+        "google",
+        "github"
     ]
 
     override func loadView() {
@@ -33,7 +34,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     
     private func loadWebsite(ofUrl url:String) {
-        let url = URL(string: "https://"+url)!
+        let url = URL(string: "https://www.\(url).com")!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
@@ -46,6 +47,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain,  target: self, action: #selector(onOpenPressed))
         
         loadingProgressBar = UIProgressView(progressViewStyle: .default)
+        
         loadingProgressBar.sizeToFit()
         
         let progressButton = UIBarButtonItem(customView: loadingProgressBar)
@@ -92,19 +94,33 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let url = navigationAction.request.url
+        handleNavigation(navigationAction: navigationAction, decisionHandler: decisionHandler)
+    }
+    
+   private func showAlertDialog() {
+        let ac = UIAlertController(title: "Not Allowed", message: "The URL you are visiting is not allowed", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Close", style: .default))
+        
+        present(ac, animated: true)
 
+    }
+    
+    private func handleNavigation(navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        let url = navigationAction.request.url
             if let host = url?.host {
+
                 for website in websites {
-                    print(host)
+
                     if host.contains(website) {
                         decisionHandler(.allow)
                         return
                     }
                 }
             }
-        
-            decisionHandler(.cancel)
+        decisionHandler(.cancel)
+
+        showAlertDialog()
     }
 }
 
