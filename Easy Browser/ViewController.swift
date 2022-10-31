@@ -56,10 +56,26 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(onRefreshPressed))
         
-        toolbarItems = [progressButton, spacer, refresh]
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(onBackNavigatorTapped))
+        
+        let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: self, action: #selector(onForwardNavigatorTapped))
+        
+        toolbarItems = [backButton, forwardButton, progressButton, spacer, refresh]
     
         navigationController?.isToolbarHidden = false
         
+    }
+    
+    @objc private func onBackNavigatorTapped(){
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+    
+    @objc private func onForwardNavigatorTapped(){
+        if webView.canGoForward {
+            webView.goForward()
+        }
     }
     
     @objc private func onRefreshPressed(){
@@ -92,7 +108,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
             loadingProgressBar.progress = Float(webView.estimatedProgress)
         }
     }
-
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         handleNavigation(navigationAction: navigationAction, decisionHandler: decisionHandler)
     }
@@ -109,9 +125,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
         let url = navigationAction.request.url
             if let host = url?.host {
-
                 for website in websites {
-
                     if host.contains(website) {
                         decisionHandler(.allow)
                         return
