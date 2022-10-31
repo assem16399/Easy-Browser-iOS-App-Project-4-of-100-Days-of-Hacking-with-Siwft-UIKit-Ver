@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F45B4E73291031E300A3F295 /* WebsitesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45B4E72291031E300A3F295 /* WebsitesListViewController.swift */; };
 		F4CEA5E928FF8F76006ED879 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CEA5E828FF8F76006ED879 /* AppDelegate.swift */; };
 		F4CEA5EB28FF8F76006ED879 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CEA5EA28FF8F76006ED879 /* SceneDelegate.swift */; };
-		F4CEA5ED28FF8F76006ED879 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CEA5EC28FF8F76006ED879 /* ViewController.swift */; };
+		F4CEA5ED28FF8F76006ED879 /* WebviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CEA5EC28FF8F76006ED879 /* WebviewViewController.swift */; };
 		F4CEA5F028FF8F76006ED879 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4CEA5EE28FF8F76006ED879 /* Main.storyboard */; };
 		F4CEA5F228FF8F78006ED879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4CEA5F128FF8F78006ED879 /* Assets.xcassets */; };
 		F4CEA5F528FF8F78006ED879 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4CEA5F328FF8F78006ED879 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F45B4E72291031E300A3F295 /* WebsitesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsitesListViewController.swift; sourceTree = "<group>"; };
 		F4CEA5E528FF8F76006ED879 /* Easy Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CEA5E828FF8F76006ED879 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4CEA5EA28FF8F76006ED879 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F4CEA5EC28FF8F76006ED879 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F4CEA5EC28FF8F76006ED879 /* WebviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewViewController.swift; sourceTree = "<group>"; };
 		F4CEA5EF28FF8F76006ED879 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4CEA5F128FF8F78006ED879 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4CEA5F428FF8F78006ED879 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,11 +60,12 @@
 			children = (
 				F4CEA5E828FF8F76006ED879 /* AppDelegate.swift */,
 				F4CEA5EA28FF8F76006ED879 /* SceneDelegate.swift */,
-				F4CEA5EC28FF8F76006ED879 /* ViewController.swift */,
+				F4CEA5EC28FF8F76006ED879 /* WebviewViewController.swift */,
 				F4CEA5EE28FF8F76006ED879 /* Main.storyboard */,
 				F4CEA5F128FF8F78006ED879 /* Assets.xcassets */,
 				F4CEA5F328FF8F78006ED879 /* LaunchScreen.storyboard */,
 				F4CEA5F628FF8F78006ED879 /* Info.plist */,
+				F45B4E72291031E300A3F295 /* WebsitesListViewController.swift */,
 			);
 			path = "Easy Browser";
 			sourceTree = "<group>";
@@ -138,7 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4CEA5ED28FF8F76006ED879 /* ViewController.swift in Sources */,
+				F45B4E73291031E300A3F295 /* WebsitesListViewController.swift in Sources */,
+				F4CEA5ED28FF8F76006ED879 /* WebviewViewController.swift in Sources */,
 				F4CEA5E928FF8F76006ED879 /* AppDelegate.swift in Sources */,
 				F4CEA5EB28FF8F76006ED879 /* SceneDelegate.swift in Sources */,
 			);

@@ -8,10 +8,11 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class WebviewViewController: UIViewController, WKNavigationDelegate {
     
     var webView:WKWebView!
     var loadingProgressBar: UIProgressView!
+    var selectedWebsite:String!
     
     var websites=[
         "hackingwithswift",
@@ -29,7 +30,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configureNavBar()
-        loadWebsite(ofUrl: websites[0])
+        loadWebsite(ofUrl: selectedWebsite)
     }
     
     
@@ -42,28 +43,16 @@ class ViewController: UIViewController, WKNavigationDelegate {
     private func configureNavBar() {
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain,  target: self, action: #selector(onOpenPressed))
-        
         loadingProgressBar = UIProgressView(progressViewStyle: .default)
-        
         loadingProgressBar.sizeToFit()
-        
         let progressButton = UIBarButtonItem(customView: loadingProgressBar)
-        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(onRefreshPressed))
-        
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(onBackNavigatorTapped))
-        
         let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: self, action: #selector(onForwardNavigatorTapped))
-        
         toolbarItems = [backButton, forwardButton, progressButton, spacer, refresh]
-    
         navigationController?.isToolbarHidden = false
-        
     }
     
     @objc private func onBackNavigatorTapped(){
@@ -122,7 +111,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func handleNavigation(navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-
         let url = navigationAction.request.url
             if let host = url?.host {
                 for website in websites {
@@ -133,8 +121,13 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         decisionHandler(.cancel)
-
         showAlertDialog()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
+    }
+    
 }
 
